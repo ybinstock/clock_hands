@@ -1,7 +1,30 @@
-# Clock Hands
+var hourHandAngle = function(hour,minutes){
+  return (hour+(minutes/60))*30;
+};
 
-Write a function that given the time of the day in hours and minutes returns the angle between the hands on a clock.
+var minuteHandAngle = function(minutes){
+  return (minutes/60)*360;
+};
 
-### Notes:
-* It should give a positive angle and return the smaller one (ie less than 180 degrees).
-* You can assume that the clock only moves once each minute on the minute to update its hands.
+var angleBetweenHands = function(time){
+
+  var timeArray = time.split(":");
+
+  timeArray = timeArray.map(function(element){
+    return parseInt(element);
+  });
+
+  var hourAngle = hourHandAngle(timeArray[0],timeArray[1]);
+
+  var minuteAngle = minuteHandAngle(timeArray[1]);
+
+  var finalAngle = hourAngle-minuteAngle;
+
+  if(finalAngle<0)
+    finalAngle = (-1)*finalAngle;
+
+  if(finalAngle>180)
+    finalAngle = 360 - finalAngle;
+
+  return finalAngle;
+};
